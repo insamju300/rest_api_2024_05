@@ -35,7 +35,7 @@ public class MemberControllerTests {
         // When
         ResultActions resultActions = mvc
                 .perform(
-                        post("/member/login")
+                        post("/api/v1/member/login")
                                 .content("""
                                         {
                                             "username": "user1",
@@ -48,15 +48,6 @@ public class MemberControllerTests {
 
         // Then
         resultActions
-//                .andExpect(status().is2xxSuccessful());
-//
-//        MvcResult mvcResult = resultActions.andReturn();
-//
-//        MockHttpServletResponse response = mvcResult.getResponse();
-//
-//        String authentication = response.getHeader("Authentication");
-//
-//        assertThat(authentication).isNotEmpty();
                 .andExpect(status().is2xxSuccessful())
                 .andExpect(jsonPath("$.resultCode").value("S-1"))
                 .andExpect(jsonPath("$.msg").exists())
