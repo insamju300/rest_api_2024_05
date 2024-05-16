@@ -17,7 +17,11 @@ public class NotProd {
         String password = passwordEncoder.encode("1234");
         return args -> {
             Member member1 = memberService.join("user1", password, "user1@test.com");
-            Member member2 = memberService.join("user2", password, "user2@test.com");
+            Member member2 = memberService.join(
+
+
+
+                     "user2", password, "user2@test.com");
         };
     }
 }
