@@ -1,9 +1,10 @@
-package com.koreait.rest_2024_05.boundedContext.member;
+package com.koreait.rest_2024_05.boundedContext.member.controller;
 
 import com.koreait.rest_2024_05.base.rsData.RsData;
-import com.koreait.rest_2024_05.member.entity.Member;
-import com.koreait.rest_2024_05.member.service.MemberService;
-import jakarta.servlet.http.HttpServletResponse;
+import com.koreait.rest_2024_05.boundedContext.member.entity.Member;
+import com.koreait.rest_2024_05.boundedContext.member.service.MemberService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -20,7 +21,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping(value = "/api/v1/member", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
-public class Api1MemberController {
+public class ApiV1MemberController {
     private final MemberService memberService;
 
     @Data
@@ -57,6 +58,7 @@ public class Api1MemberController {
 
     //    consumes = ALL_VALUE -> Json 형태로 입력받기가 필수가 아니다.
     @GetMapping(value = "/me", consumes = ALL_VALUE)
+    @Operation(summary = "로그인된 사용자의 정보", security = @SecurityRequirement(name = "bearerAuth"))
     public RsData<MeResponse> me(@AuthenticationPrincipal User user){
         Member member = memberService.findByUsername(user.getUsername()).get();
 
